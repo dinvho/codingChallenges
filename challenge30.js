@@ -1,42 +1,32 @@
-// function expandedForm (num){
-//     let numArr = num.toString().split('').filter(x=> !x.startsWith('.')).reverse()
-//     for(let i = 0; i < numArr.length - 1; i++){
-//             numArr[i] += '/1'
-//         for( let j = numArr.length - i; j > 1; j--){
-//             numArr[i] += '0'
-//         }
-//     }
-//     let result = numArr.filter(x => !x.startsWith(0)).reverse()
-//     return result.join(' + ')
-// }
+// A stream of data is received and needs to be reversed.
 
-// Write Number in Expanded Form
+// Each segment is 8 bits long, meaning the order of these segments needs to be reversed, for example:
 
-// You will be given a number and you will need to return it as a string in Expanded Form. For example:
+// 11111111  00000000  00001111  10101010
+//  (byte1)   (byte2)   (byte3)   (byte4)
+// should become:
 
-// expandedForm(12); // Should return '10 + 2'
-// expandedForm(42); // Should return '40 + 2'
-// expandedForm(70304); // Should return '70000 + 300 + 4'
+// 10101010  00001111  00000000  11111111
+//  (byte4)   (byte3)   (byte2)   (byte1)
+// The total number of bits will always be a multiple of 8.
 
-function expandedForm(num){
-    let numArr = num.toString().split('.')
-    let bigNum = numArr[0].toString().split('')
-    for(let i = 0; i < bigNum.length; i++){
-      for (let j = bigNum.length - i; j > 1; j--){
-        bigNum[i] += '0'
-      }
+// The data is given in an array as such:
+
+// [1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,0,1,0,1,0]
+
+function dataReverse(data) {
+    // Your code here
+  // split the data into its bits in arrays inside of another array
+    let newArr = new Array()
+    for (let i = 0; i < data.length; i+=8){
+      newArr.push(data.slice(i,i+8))
     }
-    bigNum = bigNum.filter(x=> !x.startsWith(0))
     
-    let floatNum = numArr[1].toString().split('').reverse()
-    
-    for(let i = 0; i < floatNum.length; i++){
-            floatNum[i] += '/10'
-        for( let j = floatNum.length - i; j > 1; j--){
-            floatNum[i] += '0'
-        }
-    }
-    floatNum = floatNum.filter(x => !x.startsWith(0)).reverse()
-    let result = [...bigNum,...floatNum]
-    return result.join(' + ')
+    let result = newArr.reverse().reduce((arr, e) => {
+      return arr.concat(e);
+    })
+  // reverse the array containing the bits of arrays
+    return result
+  // then join the bits of arrays
   }
+

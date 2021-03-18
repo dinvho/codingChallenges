@@ -8,14 +8,25 @@
 // expandedForm(7.304); // should return '7 + 3/10 + 4/1000'
 // expandedForm(0.04); // should return '4/100'
 
-function expandedForm (num){
-    let numArr = num.toString().split('')
-    for(let i = 0; i < numArr.length; i++){
-        for( let j = 0; j < num.length; j++){
-            numArr[i] += '0'
+function expandedForm(num){
+    let numArr = num.toString().split('.')
+    let bigNum = numArr[0].toString().split('')
+    for(let i = 0; i < bigNum.length; i++){
+      for (let j = bigNum.length - i; j > 1; j--){
+        bigNum[i] += '0'
+      }
+    }
+    bigNum = bigNum.filter(x=> !x.startsWith(0))
+    
+    let floatNum = numArr[1].toString().split('').reverse()
+    
+    for(let i = 0; i < floatNum.length; i++){
+            floatNum[i] += '/10'
+        for( let j = floatNum.length - i; j > 1; j--){
+            floatNum[i] += '0'
         }
     }
-    console.log(numArr)
-}
-
-expandedForm(1.234)
+    floatNum = floatNum.filter(x => !x.startsWith(0)).reverse()
+    let result = [...bigNum,...floatNum]
+    return result.join(' + ')
+  }
