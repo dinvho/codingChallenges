@@ -17,3 +17,5 @@ function expandedForm (num){
     }
     console.log(numArr)
 }
+
+expandedForm(1.234)
