@@ -10,12 +10,13 @@ function twoNumberSum(array, targetSum) {
           return []
       } else {
           for (let i = 0; i < array.length; i++){
-              for (let j = i+1; j < array.length; j++) {
-              if (array[j]===(targetSum-array[i])) {
-                  result.push(array[i], array[j])
-              }
-          }
-      }
+            for (let j = i+1; j < array.length; j++) {
+                if (array[j]===(targetSum-array[i])) {
+                    result.push(array[i], array[j])
+                }
+             }
+        }
       }
       return result
       }
+
