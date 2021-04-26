@@ -11,4 +11,4 @@ const zeroFuel = (distanceToPump, mpg, fuelLeft) => {
     console.log('distanceToPump:', distanceToPump)
     console.log('totalDistanceLeft:', totalDistanceLeft)
     return distanceToPump <= totalDistanceLeft ? true: false
-  };
+}
